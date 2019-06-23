@@ -1,7 +1,8 @@
-package com.acm.workshop.aparat
+package com.acm.workshop.aparat.app.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.acm.workshop.aparat.R
 
 class MainActivity : AppCompatActivity() {
 
