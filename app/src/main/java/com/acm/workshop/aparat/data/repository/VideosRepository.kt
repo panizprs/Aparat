@@ -2,9 +2,11 @@ package com.acm.workshop.aparat.data.repository
 
 import com.acm.workshop.aparat.app.executer.BackgroundThread
 import com.acm.workshop.aparat.app.executer.MainThread
+import com.acm.workshop.aparat.data.entity.AparatEntity
 import com.acm.workshop.aparat.data.entity.VideoEntity
-import com.acm.workshop.aparat.remote.api.main
 import com.acm.workshop.aparat.remote.datasource.VideosRemoteDataSource
+import com.acm.workshop.aparat.remote.dto.VideosDto
+import com.acm.workshop.aparat.remote.dto.toApartEntity
 import com.acm.workshop.aparat.remote.dto.toVideoEntity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -20,17 +22,16 @@ class VideosRepository @Inject constructor(
 
     private val disposables = CompositeDisposable()
 
-    fun getVideos(onSuccess: (List<VideoEntity>) -> Unit, onFailure: (Throwable) -> Unit) {
+    fun getVideos(page: String, onSuccess: (AparatEntity) -> Unit, onFailure: (Throwable) -> Unit) {
         println("videoRepository")
-        videoRemoteDataSource.getVideos()
+        videoRemoteDataSource.getVideos(page)
             .subscribeOn(backgroundThread.scheduler)
             .observeOn(mainThread.scheduler)
             .subscribe({ videosDto ->
                 println("subscribe $videosDto")
                 onSuccess(
-                    videosDto.mostviewedvideos.map { mostviewedvideo ->
-                        mostviewedvideo.toVideoEntity()
-                    })
+                    videosDto.toApartEntity()
+                    )
             }, { error ->
                 println("error:  $error")
                 onFailure(error)

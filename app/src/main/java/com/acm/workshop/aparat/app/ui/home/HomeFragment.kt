@@ -48,7 +48,10 @@ class HomeFragment : DaggerFragment(){
         val loadingBar = view.findViewById<View>(R.id.loadingBar)
 
         homeViewModel.videos.observe(this, Observer {videos ->
-            recyclerView.adapter = HomeAdapter(videos)
+            recyclerView.adapter = HomeAdapter().apply {
+                addItems(videos)
+            }
+
             loadingBar.visibility = View.GONE
         })
 
@@ -62,7 +65,7 @@ class HomeFragment : DaggerFragment(){
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
                     Toast.makeText(context, "Last", Toast.LENGTH_LONG).show()
-
+                    homeViewModel.loadNextPageVideos()
                 }
             }
         })

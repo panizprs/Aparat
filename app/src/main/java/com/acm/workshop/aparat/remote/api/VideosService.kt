@@ -8,37 +8,16 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 
 interface VideosService{
 
-    @GET("/etc/api/mostviewedvideos")
-    abstract fun getVideos() : Single<VideosDto>
+    @GET("{page}")
+    abstract fun getVideos(@Path(value = "page", encoded = true) page : String) : Single<VideosDto>
 
     companion object {
         const val BASE_URL = "http://www.aparat.com/"
+        const val BASE_URL_SIZE = 22
     }
-}
-
-fun main(){
-
-    val retrofit = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .baseUrl(BASE_URL)
-        .client(OkHttpClient())
-        .build()
-
-
-    val service = retrofit.create(VideosService::class.java)
-
-    service.getVideos()
-        .subscribe({
-            println(it)
-        },{
-            println(it)
-        }
-
-        )
-
 }

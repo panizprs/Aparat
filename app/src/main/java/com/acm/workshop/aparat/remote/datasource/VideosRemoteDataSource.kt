@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class VideosRemoteDataSource @Inject constructor(private val videosService: VideosService){
 
-    fun getVideos() : Single<VideosDto> {
-        return videosService.getVideos()
+    fun getVideos(page: String) : Single<VideosDto> {
+        return videosService.getVideos(page)
     }
 }

@@ -11,7 +11,19 @@ import com.acm.workshop.aparat.data.entity.VideoEntity
 import com.squareup.picasso.Picasso
 import org.w3c.dom.Text
 
-class HomeAdapter(private val items: List<VideoEntity>)  : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>(){
+class HomeAdapter()  : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>(){
+
+    private var items =  mutableListOf<VideoEntity>()
+    fun setItems(newItems: List<VideoEntity>){
+        items = newItems.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    fun addItems(newItems: List<VideoEntity>){
+        val prvSize = items.size
+        items.addAll(newItems)
+        notifyItemRangeChanged(prvSize, items.size)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_home_video_item, parent, false)
