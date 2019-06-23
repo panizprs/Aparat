@@ -3,9 +3,13 @@ package com.acm.workshop.aparat.app.ui.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.acm.workshop.aparat.R
 import com.acm.workshop.aparat.data.entity.VideoEntity
+import com.squareup.picasso.Picasso
+import org.w3c.dom.Text
 
 class HomeAdapter(private val items: List<VideoEntity>)  : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>(){
 
@@ -23,8 +27,16 @@ class HomeAdapter(private val items: List<VideoEntity>)  : RecyclerView.Adapter<
 
     class HomeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
-        fun bind(video : VideoEntity){
+        private val title = itemView.findViewById<TextView>(R.id.title)
+        private val duraion = itemView.findViewById<TextView>(R.id.duration)
 
+        private val image = itemView.findViewById<ImageView>(R.id.image)
+
+
+        fun bind(video : VideoEntity){
+            title.text = video.title
+            duraion.text = video.duration
+            Picasso.get().load(video.profilePhoto).into(image)
         }
 
     }
