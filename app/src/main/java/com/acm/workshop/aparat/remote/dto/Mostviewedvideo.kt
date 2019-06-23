@@ -19,7 +19,7 @@ data class Mostviewedvideo(
     @SerializedName("frame")
     val frame: String?,
     @SerializedName("id")
-    val id: String?,
+    val id: String,
     @SerializedName("isHidden")
     val isHidden: Boolean?,
     @SerializedName("official")
