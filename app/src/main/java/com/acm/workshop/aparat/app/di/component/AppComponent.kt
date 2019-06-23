@@ -2,6 +2,7 @@ package com.acm.workshop.aparat.app.di.component
 
 import com.acm.workshop.aparat.app.AparatApp
 import com.acm.workshop.aparat.app.di.module.AppModule
+import com.acm.workshop.aparat.app.di.module.DataBaseModule
 import com.acm.workshop.aparat.app.di.module.FragmentsModule
 import com.acm.workshop.aparat.app.di.module.NetworkModule
 import dagger.Component
@@ -15,6 +16,7 @@ import javax.inject.Singleton
         AndroidInjectionModule::class,
         AppModule::class,
         NetworkModule::class,
+        DataBaseModule::class,
         FragmentsModule::class
     ]
 )
